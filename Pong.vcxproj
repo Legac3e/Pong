@@ -153,7 +153,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\ball.cpp" />
+    <ClCompile Include="Src\entity.cpp" />
+    <ClCompile Include="Src\game.cpp" />
     <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\paddle.cpp" />
+    <ClCompile Include="Src\pong.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\ball.hpp" />
+    <ClInclude Include="Src\entity.hpp" />
+    <ClInclude Include="Src\game.hpp" />
+    <ClInclude Include="Src\paddle.hpp" />
+    <ClInclude Include="Src\pong.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
