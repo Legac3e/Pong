@@ -12,13 +12,16 @@ class Game
 private:
     int m_windowWidth;
     int m_windowHeight;
+    int m_frameRate;
+    std::string m_title;
     sf::RenderWindow window;
     Pong pong;
 
 public:
-    Game(int, int);
+    Game(int, int, int, std::string);
     ~Game() = default;
     Game(const Game&) = default;
+    void init();
     void Run();
     void Update();
     void Render();

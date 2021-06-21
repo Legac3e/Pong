@@ -51,12 +51,12 @@ void Entity::Move()
 	m_pos.y += m_vel.y;
 }
 
-void Entity::Update()
+void Entity::Update(const std::vector<Entity*>& eVec)
 {
 	Entity::Move();
 }
 
 std::string Entity::getType()
 {
-	return "rect";
+	return "rectangle";
 }

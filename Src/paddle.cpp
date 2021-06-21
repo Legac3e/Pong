@@ -17,14 +17,29 @@ void Paddle::Move()
 void Paddle::Update()
 {
 	Move();
-	CheckForWalls();
+	CheckForCollisions();
 }
 
-void Paddle::CheckForWalls()
+bool Paddle::CheckTopWall()
 {
-	if (m_pos.y > 2.0)
-		m_vel.y *= -1.0;
-
 	if (m_pos.y + (m_dimensions.y) < m_windowHeight)
+		return true;
+
+	return false;
+}
+
+bool Paddle::CheckBottomWall()
+{
+	if (m_pos.y > 0.0)
+		return true;
+
+	return false;
+}
+
+void Paddle::CheckForCollisions()
+{
+	if(CheckBottomWall())
+		m_vel.y *= -1.0;
+	else if (CheckTopWall())
 		m_vel.y *= -1.0;
 }

@@ -4,7 +4,7 @@
 #include <utility>
 #include <string>
 
-// class Entity : public sf::Drawable, public sf::Transformable
+//class Entity : public sf::Drawable, public sf::Transformable
 class Entity
 {
 protected:
@@ -24,7 +24,8 @@ public:
     bool setPos(float, float);
     bool setVel(float, float);
     void virtual Move();
-    void virtual Update();
+    //void Update(const std::vector<Entity*>&);
+    void virtual Update(const std::vector<Entity*>&);
     std::string virtual getType();
 
     //void draw(sf::RenderTarget&, sf::RenderStates) const override;

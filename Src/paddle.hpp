@@ -16,5 +16,7 @@ public:
 
     void Move();
     void Update();
-    void CheckForWalls();
+    void CheckForCollisions();
+    bool CheckTopWall();
+    bool CheckBottomWall();
 };
