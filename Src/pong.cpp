@@ -1,8 +1,8 @@
 #include "pong.hpp"
 
-float ballSpeedX = 5.0f;
-float ballSpeedY = 8.0f;
-float ballWidthHeight = 15.0f;
+float ballSpeedX = 10.0f;
+float ballSpeedY = 16.0f;
+float ballWidthHeight = 8.0f;
 
 float paddleSpeedX = 0.0f;
 float paddleSpeedY = 5.0f;

@@ -1,9 +1,12 @@
 #include "game.hpp"
 
-int8_t red = 100;
-int8_t green = 255;
-int8_t blue = 150;
-int8_t counter = 0;
+bool redSwap = true;
+bool greenSwap = true;
+bool blueSwap = true;
+uint8_t red = 0;
+uint8_t green = 0;
+uint8_t blue = 100;
+uint8_t counter = 0;
 
 Game::Game(int winWidth = 1920, int winHeight = 1080, int frameRate = 120, std::string title = "Pong")
     : m_windowWidth{ winWidth },
@@ -16,15 +19,6 @@ Game::Game(int winWidth = 1920, int winHeight = 1080, int frameRate = 120, std::
         init(); 
     }
 
-void Game::Run()
-{
-    while (window.isOpen())
-    {
-        Update();
-        Render();
-    }
-}
-
 void Game::init()
 {
     window.setFramerateLimit(m_frameRate);
@@ -32,45 +26,16 @@ void Game::init()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 16;
 
-    //window.clear(sf::Color(0, 0, 0));
+    window.clear(sf::Color(0, 0, 0));
 }
 
-void Game::Render()
+void Game::Run()
 {
-    //window.clear(sf::Color(0, 0, 0));
-
-    //sf::CircleShape circleShape(1.0f);
-    //sf::RectangleShape rectangleShape(1.0f);
-
-    for (const auto& i : pong.getObjects())
+    while (window.isOpen())
     {
-        std::string type = i->getType();
-        if (type == "circle")
-        {
-            sf::CircleShape circleShape(i->getDimensions().x);
-            circleShape.setPosition(i->getPositions().x, i->getPositions().y);
-            circleShape.setFillColor(sf::Color(red, green, blue));
-            window.draw(circleShape);
-        } else if (type == "rectangle")
-        {
-            sf::RectangleShape shape(i->getDimensions());
-            shape.setPosition(i->getPositions().x, i->getPositions().y);
-            shape.setFillColor(sf::Color(red, green, blue));
-            window.draw(shape);
-        }
-
+        Update();
+        Render();
     }
-
-    counter++;
-    if (counter >= 50)
-    {
-        red += 2;
-        green += 3;
-        blue += 4;
-        counter = 0;
-    }
-
-    window.display();
 }
 
 void Game::Update()
@@ -89,4 +54,99 @@ void Game::Update()
         i->Update(paddles);
     }
 
+}
+
+void Game::Render()
+{
+    // window.clear(sf::Color(0, 0, 0));
+    changeColor();
+
+    for (const auto& i : pong.getObjects())
+    {
+        std::string type = i->getType();
+        if (type == "circle")
+        {
+            sf::CircleShape circleShape(i->getDimensions().x);
+            circleShape.setPosition(i->getPositions().x, i->getPositions().y);
+            circleShape.setFillColor(sf::Color(red, green, blue));
+            window.draw(circleShape);
+        } else if (type == "rectangle")
+        {
+            sf::RectangleShape shape(i->getDimensions());
+            shape.setPosition(i->getPositions().x, i->getPositions().y);
+            shape.setFillColor(sf::Color(red, green, blue));
+            window.draw(shape);
+        }
+    }
+
+    window.display();
+}
+
+void changeColor()
+{
+    if (red <= 0)
+    {
+        red = 0;
+        redSwap = true;
+    }
+    else if (red >= 255)
+    {
+        red = 255;
+        redSwap = false;
+    }
+
+    if (green <= 1)
+    {
+        green = 0;
+        greenSwap = true;
+    }
+    else if (green >= 254)
+    {
+        green = 255;
+        greenSwap = false;
+    }
+
+    if (blue <= 150)
+    {
+        blue = 150;
+        blueSwap = true;
+    }
+    else if (blue >= 255)
+    {
+        blue = 255;
+        blueSwap = false;
+    }
+
+    counter++;
+
+    switch (counter % 3)
+    {
+    case 0:
+        if (redSwap)
+            red += 1;
+        else
+            red -= 1;
+
+        break;
+    case 1:
+        if (greenSwap)
+            green += 2;
+        else
+            green -= 2;
+
+        break;
+    case 2:
+        if (blueSwap)
+            blue += 1;
+        else
+            blue -= 1;
+
+        break;
+
+    default:
+        red += 1;
+        break;
+    }
+
+    std::cout << int(red) << " " << int(green) << " " << int(blue) << std::endl;
 }
